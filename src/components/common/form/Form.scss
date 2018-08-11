@@ -1,0 +1,19 @@
+.form {
+    &>h1 {
+        text-align: center;
+    }
+    &__control {
+        display: flex;
+        &>label {
+            margin-right: auto;
+            padding: 0 .5rem;
+        }
+        &>input {
+            margin-left: auto;
+            padding: 0 .5rem;
+        }
+    }
+    &__label {
+        margin-right: auto;
+    }
+}

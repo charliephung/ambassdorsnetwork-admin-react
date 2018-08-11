@@ -60,5 +60,6 @@ module.exports = {
       template: "./src/index.html"
     })
     // new BundleAnalyzerPlugin()
-  ]
+  ],
+  devtool: "cheap-module-source-map"
 };

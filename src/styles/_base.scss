@@ -31,3 +31,14 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.container {
+    width: 1000px;
+    margin: auto;
+}
+
+.center-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
