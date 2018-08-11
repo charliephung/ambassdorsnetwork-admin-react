@@ -2,10 +2,14 @@ import { LOGIN, LOGOUT, AUTH_ERROR } from "actions/constant";
 import api from "actions/api";
 
 export const actAuth = {
-  login: data => dispatch => {
+  login: (email, password) => dispatch => {
     api
-      .login(data)
-      .then(res => {})
+      .login(email, password)
+      .then(() => {
+        dispatch({
+          type: LOGIN
+        });
+      })
       .catch(err => {
         dispatch({
           type: AUTH_ERROR,
@@ -13,5 +17,11 @@ export const actAuth = {
         });
       });
   },
-  logout: () => ({ type: LOGOUT, payload: {} })
+  logout: () => dispatch => {
+    api.logout().then(res => {
+      dispatch({
+        type: LOGOUT
+      });
+    });
+  }
 };

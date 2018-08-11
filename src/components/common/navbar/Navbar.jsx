@@ -21,9 +21,13 @@ const List = props => {
 export class Navbar extends Component {
   static List = List;
   static Item = Item;
-
   render() {
-    return <nav className="navbar">{this.props.children}</nav>;
+    const { children, className, ...rest } = this.props;
+    return (
+      <nav {...rest} className={`navbar ${className ? className : ""}`}>
+        {children}
+      </nav>
+    );
   }
 }
 

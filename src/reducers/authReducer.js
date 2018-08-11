@@ -1,19 +1,15 @@
 import { LOGIN, LOGOUT, AUTH_ERROR } from "actions/constant";
 const initState = {
-  user: {},
+  user: false,
   error: {}
 };
 
 const reducer = (state = initState, actions) => {
   switch (actions.type) {
     case LOGIN:
-      console.log(actions);
-
-      return state;
+      return Object.assign({}, state, { user: true });
     case LOGOUT:
-      console.log(actions);
-
-      return state;
+      return { user: false, error: {} };
     case AUTH_ERROR:
       return Object.assign({}, state, { error: actions.payload });
     default:

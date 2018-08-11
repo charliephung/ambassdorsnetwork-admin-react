@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { isEmpty } from "utils";
+import { isEmpty } from "utils/utils";
 import { actAuth } from "actions/auth/actAuth";
 import {
   Form,
@@ -12,19 +12,8 @@ import {
 import { Button } from "components/common/button/Button";
 import { Heading1 } from "components/common/heading/Heading";
 
-// console.log(isEmpty);
-
 export class LoginFormContainer extends Component {
   state = { email: "", password: "", error: {} };
-  componentDidUpdate() {
-    console.log(this.props);
-
-    // if (isEmpty(this.props.auth.error)) {
-    //   this.setState({
-    //     error: this.props.auth.error
-    //   });
-    // }
-  }
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -38,12 +27,15 @@ export class LoginFormContainer extends Component {
   };
 
   render() {
-    console.log("--render--");
-
-    const { email, password, error } = this.state;
+    const { email, password } = this.state;
+    const { error } = this.props.auth;
+    const flash = !isEmpty(error) && (
+      <div className="flash flash--red">{error}</div>
+    );
     return (
       <Form>
         <Heading1>Login</Heading1>
+        {flash}
         <Group>
           <Control className="padding-1">
             <Label htmlFor="email">Email</Label>

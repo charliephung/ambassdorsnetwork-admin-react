@@ -61,5 +61,6 @@ module.exports = {
     })
     // new BundleAnalyzerPlugin()
   ],
+  devServer: { historyApiFallback: true },
   devtool: "cheap-module-source-map"
 };

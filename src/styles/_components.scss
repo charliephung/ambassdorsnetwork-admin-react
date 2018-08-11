@@ -1,0 +1,9 @@
+.flash {
+    text-align: center;
+    box-shadow: 1px 1px .5rem rgba(0, 0, 0, .2);
+    padding: .5rem 1rem;
+    &--red {
+        color: $color-red;
+        background-color: rgba($color-red, .2);
+    }
+}

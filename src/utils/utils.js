@@ -1,5 +1,3 @@
-import { Object } from "core-js";
-
 export const isEmpty = data =>
   data === undefined ||
   data === null ||
