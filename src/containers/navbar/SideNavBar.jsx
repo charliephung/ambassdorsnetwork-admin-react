@@ -8,7 +8,7 @@ export class SideNavContainer extends Component {
       <Nav className="navbar--side navbar--dark">
         <Nav.List className="navbar__list--side">
           <Nav.Item>
-            <Link to="/post">POSTS</Link>
+            <Link to="/posts">POSTS</Link>
           </Nav.Item>
           <Nav.Item>NEWS</Nav.Item>
           <Nav.Item>USERS</Nav.Item>

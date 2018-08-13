@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Textarea } from "../components/common/form/Form";
 import { actFetchPosts } from "../actions/posts/actPosts";
 import PostContainer from "../containers/post/PostContainer";
+import api from "../actions/api";
 
 const wrapperStyles = { width: "100%" };
 const textareaStyles = { width: "100%", height: "500px", padding: "1rem" };
@@ -18,21 +19,23 @@ class AdminPage extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
+
   render() {
     const { onEdit } = this.state;
     const { posts } = this.props;
     const ambassadors = Object.keys(posts).map(ele => {
-      return posts[ele];
+      return { post: posts[ele], id: ele };
     });
     const allPost = ambassadors.reduce((newArr, ele) => {
-      if (ele.post) {
-        Object.keys(ele.post).forEach(id => {
+      if (ele.post.post) {
+        Object.keys(ele.post.post).forEach(id => {
           newArr.push({
+            id: ele.id,
             postId: id,
-            email: ele.email,
-            name: ele.name,
-            profile: ele.profile,
-            ...ele.post[id]
+            email: ele.post.email,
+            name: ele.post.name,
+            profile: ele.post.profile,
+            ...ele.post.post[id]
           });
         });
       }

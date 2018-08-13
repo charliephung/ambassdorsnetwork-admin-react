@@ -5,7 +5,7 @@ const Post = props => {
   const { post } = props;
   return (
     <div className="post margin-1">
-      <Link to={"/post/" + post.postId}>
+      <Link to={"/posts/" + post.id + "/post/" + post.postId}>
         <p className="post__heading">{post.heading}</p>
         <img className="post__image" src={post.profile} />
         <p className="post__email">{post.email}</p>

@@ -10,8 +10,16 @@ const api = {
     fireAuth.signInWithEmailAndPassword(email, password),
 
   logout: () => fireAuth.signOut(),
-  fecthPosts: () => fireDB.ref("/data").once("value", ss => ss.val()),
-  fecthPost: id => fireDB.ref(`/post/${id}`).once("value", ss => ss.val())
+  fecthPosts: () => fireDB.ref("/data"),
+  fecthPost: id => fireDB.ref(`/post/${id}`).once("value", ss => ss.val()),
+  editPost: (data, postId) => {
+    return fireDB.ref("/post/" + postId).update(data, ss => ss);
+  },
+  editData: (data, ambassadorId, postId) => {
+    return fireDB
+      .ref(`/data/${ambassadorId}/post/${postId}`)
+      .update(data, ss => ss);
+  }
 };
 
 export default api;

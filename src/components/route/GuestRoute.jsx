@@ -5,7 +5,7 @@ import { isEmpty } from "utils/utils";
 
 const GuestRoute = props => {
   if (props.auth.user) {
-    return <Redirect to="/post" />;
+    return <Redirect to="/posts" />;
   }
   const Comp = props.component;
   return (

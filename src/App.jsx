@@ -13,12 +13,15 @@ const App = () => {
         <NavBar />
         <div className="container flex">
           <Switch>
-            <AuthRoute path="/post" component={SideNav} />
+            <AuthRoute path="/posts" component={SideNav} />
           </Switch>
           <Switch>
             <AuthRoute exact path="/" component={AdminPage} />
-            <AuthRoute exact path="/post" component={AdminPage} />
-            <AuthRoute path="/post/:postId" component={PostPage} />
+            <AuthRoute exact path="/posts" component={AdminPage} />
+            <AuthRoute
+              path="/posts/:ambassadorId/post/:postId"
+              component={PostPage}
+            />
             <GuestRoute exact path="/login" component={LoginPage} />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>

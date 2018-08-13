@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { withRouter, matchPath } from "react-router-dom";
 import { Button } from "components/common/button/Button";
-
 import {
   Form,
   Group,
@@ -11,9 +11,13 @@ import {
 } from "components/common/form/Form";
 import { Heading2 } from "components/common/heading/Heading";
 import EditNav from "containers/navbar/EditNav";
+
 export class Editor extends Component {
-  state = { heading: "", headerImage: "", content: "" };
+  state = { ambassadorId: "", heading: "", image: "", content: "" };
   componentDidMount() {
+    const match = matchPath(this.props.location.pathname, {
+      path: "/posts/:ambassadorId/post/:postId"
+    });
     const {
       content = "<p></p>",
       heading = "loading",
@@ -21,23 +25,39 @@ export class Editor extends Component {
     } = this.props.post;
     this.setState({
       heading,
-      headerImage: image,
-      content
+      image,
+      content,
+      ambassadorId: match.params.ambassadorId,
+      postId: match.params.postId
     });
   }
 
   onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => {
+        this.props.actViewPost(this.state);
+      }
+    );
+  };
+
+  onSubmit = e => {
+    this.props.onSubmit();
   };
 
   render() {
-    const { onToggleEdit } = this.props;
-    const { heading, headerImage, content } = this.state;
+    const { onToggleEdit, className } = this.props;
+    const { heading, image, content } = this.state;
+
     return (
-      <Form>
-        <Button type="button" className="btn btn--green  margin-1">
+      <Form className={className}>
+        <Button
+          onClick={this.onSubmit}
+          type="button"
+          className="btn btn--green  margin-1"
+        >
           Save
         </Button>
         <Button
@@ -58,11 +78,7 @@ export class Editor extends Component {
             <Label>
               <Heading2>Header Image</Heading2>
             </Label>
-            <Input
-              onChange={this.onChange}
-              name="headerImage"
-              value={headerImage}
-            />
+            <Input onChange={this.onChange} name="image" value={image} />
           </Control>
         </Group>
         <Control>
@@ -85,4 +101,4 @@ export class Editor extends Component {
   }
 }
 
-export default Editor;
+export default withRouter(Editor);

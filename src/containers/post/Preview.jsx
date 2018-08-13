@@ -8,9 +8,9 @@ export class Preview extends Component {
       heading = "loading",
       image = ""
     } = this.props.post;
-    const { onToggleEdit } = this.props;
+    const { onToggleEdit, className } = this.props;
     return (
-      <Fragment>
+      <div className={className}>
         <Button onClick={onToggleEdit} className="btn  btn--lightblue margin-1">
           Edit
         </Button>
@@ -27,7 +27,7 @@ export class Preview extends Component {
           className="post__view"
           dangerouslySetInnerHTML={{ __html: content }}
         />
-      </Fragment>
+      </div>
     );
   }
 }
