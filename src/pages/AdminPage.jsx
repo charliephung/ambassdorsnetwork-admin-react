@@ -3,7 +3,7 @@ import Nav from "components/common/nav/Nav";
 import { connect } from "react-redux";
 import { Textarea } from "../components/common/form/Form";
 import { actFetchPosts } from "../actions/posts/actPosts";
-import PostContainer from "../containers/post/PostContainer";
+import PostContainer from "../containers/admin/PostContainer";
 import api from "../actions/api";
 
 const wrapperStyles = { width: "100%" };

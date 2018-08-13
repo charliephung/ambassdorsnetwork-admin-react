@@ -32,7 +32,15 @@ export class Editor extends Component {
     });
   }
 
+  onAdd = data => {
+    console.log(this.refs.textarea.focus());
+
+    console.log(data);
+  };
+
   onChange = e => {
+    console.log(e.target.selectionStart);
+
     this.setState(
       {
         [e.target.name]: e.target.value
@@ -85,12 +93,14 @@ export class Editor extends Component {
           <Label>
             <Heading2>Content</Heading2>
           </Label>
-          <EditNav />
+          <EditNav onAdd={this.onAdd} />
           <Textarea
+            ref="textarea"
             onChange={this.onChange}
             style={{ width: "100%" }}
             name="content"
             id=""
+            className="editor"
             value={content}
             cols="30"
             rows="50"

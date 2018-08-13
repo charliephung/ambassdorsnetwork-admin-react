@@ -15,6 +15,8 @@ export const Label = props => {
 
 export const Textarea = props => {
   const { className, ...rest } = props;
+  console.log(rest);
+
   return (
     <textarea
       {...rest}
