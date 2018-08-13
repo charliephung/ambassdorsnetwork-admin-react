@@ -1,0 +1,23 @@
+.post {
+    width: 150px;
+    height: min-content;
+    padding: 1rem;
+    overflow: hidden;
+    background-color: $color-lightdark;
+    border: 1px solid rgb(70, 68, 68);
+    border-radius: 20px;
+    &__image {
+        width: 100%;
+        height: auto;
+    }
+    &__heading {
+        width: 150px;
+        height: 30px;
+        overflow: hidden;
+    }
+    &__view {
+        &>img {
+            width: 100%;
+        }
+    }
+}

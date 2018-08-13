@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import { isEmpty } from "utils/utils";
 
 const AuthRoute = props => {
-  if (!props.auth.user) {
+  if (!props.auth.user && props.location.pathname !== "/login") {
     return <Redirect to="/login" />;
   }
   const Comp = props.component;

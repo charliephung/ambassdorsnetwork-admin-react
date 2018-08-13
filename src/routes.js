@@ -1,17 +1,10 @@
 import React from "react";
-import Loadable from "react-loadable";
+import Login from "pages/LoginPage";
+import Admin from "pages/AdminPage";
+import Post from "pages/PostPage";
+import SideNavBar from "containers/navbar/SideNavBar";
 
-export const LoginPage = Loadable({
-  loader: () => import("pages/LoginPage"),
-  loading: () => <h1>Loading...</h1>
-});
-
-export const AdminPage = Loadable({
-  loader: () => import("pages/AdminPage"),
-  loading: () => <h1>Loading...</h1>
-});
-
-export const SideNav = Loadable({
-  loader: () => import("containers/navbar/SideNavContainer"),
-  loading: () => <h1>Loading...</h1>
-});
+export const LoginPage = props => <Login {...props} />;
+export const AdminPage = props => <Admin {...props} />;
+export const SideNav = props => <SideNavBar {...props} />;
+export const PostPage = props => <Post {...props} />;

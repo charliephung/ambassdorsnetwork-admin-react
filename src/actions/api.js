@@ -9,7 +9,9 @@ const api = {
   login: (email = "", password = "") =>
     fireAuth.signInWithEmailAndPassword(email, password),
 
-  logout: () => fireAuth.signOut()
+  logout: () => fireAuth.signOut(),
+  fecthPosts: () => fireDB.ref("/data").once("value", ss => ss.val()),
+  fecthPost: id => fireDB.ref(`/post/${id}`).once("value", ss => ss.val())
 };
 
 export default api;

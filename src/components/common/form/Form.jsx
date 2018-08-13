@@ -13,6 +13,16 @@ export const Label = props => {
   );
 };
 
+export const Textarea = props => {
+  const { className, ...rest } = props;
+  return (
+    <textarea
+      {...rest}
+      className={`form__input ${className ? className : ""}`}
+    />
+  );
+};
+
 export const Input = props => {
   const { type = "text", className, ...rest } = props;
   return (

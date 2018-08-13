@@ -1,32 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FaUser, FaSignInAlt } from "react-icons/fa";
-import Navbar from "components/common/navbar/Navbar";
+import Nav from "components/common/nav/Nav";
 import { actAuth } from "actions/auth/actAuth";
-export class NarBarContainer extends Component {
+export class NavBar extends Component {
   logout = () => {
     this.props.logout();
   };
   render() {
     const { user } = this.props.auth;
     return (
-      <Navbar>
+      <Nav>
         <div className="container">
-          <Navbar.List>
-            <Navbar.Item>
+          <Nav.List>
+            <Nav.Item>
               <FaUser />
               &nbsp; Ambassador admin
-            </Navbar.Item>
+            </Nav.Item>
 
             {user && (
-              <Navbar.Item onClick={this.logout} className="right">
+              <Nav.Item onClick={this.logout} className="right">
                 <FaSignInAlt />
                 &nbsp; Logout
-              </Navbar.Item>
+              </Nav.Item>
             )}
-          </Navbar.List>
+          </Nav.List>
         </div>
-      </Navbar>
+      </Nav>
     );
   }
 }
@@ -42,4 +42,4 @@ const mapDispatch = {
 export default connect(
   mapState,
   mapDispatch
-)(NarBarContainer);
+)(NavBar);
