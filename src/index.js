@@ -5,7 +5,6 @@ import rootReducer from "reducers";
 import ReactDOM from "react-dom";
 import App from "App";
 import thunk from "redux-thunk";
-
 import { firebaseConfig } from "configs/firebase.js";
 import firebase from "firebase";
 

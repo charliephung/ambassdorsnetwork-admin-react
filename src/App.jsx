@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { hot } from "react-hot-loader";
+
 import AuthRoute from "components/route/AuthRoute";
 import GuestRoute from "components/route/GuestRoute";
 import "./styles/_main.scss";
@@ -31,4 +33,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default hot(module)(App);
