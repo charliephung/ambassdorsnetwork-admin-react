@@ -9,7 +9,6 @@ import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
 export class PostPage extends Component {
   state = { onEdit: false };
   componentDidMount() {
-    //
     const match = matchPath(this.props.location.pathname, {
       path: "/posts/:ambassadorId/post/:postId"
     });

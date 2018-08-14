@@ -14,12 +14,11 @@ export const Label = props => {
 };
 
 export const Textarea = props => {
-  const { className, ...rest } = props;
-  console.log(rest);
-
+  const { className, node, ...rest } = props;
   return (
     <textarea
       {...rest}
+      ref={node}
       className={`form__input ${className ? className : ""}`}
     />
   );

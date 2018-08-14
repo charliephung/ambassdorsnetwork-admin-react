@@ -14,7 +14,11 @@ export class Preview extends Component {
         <Button onClick={onToggleEdit} className="btn  btn--lightblue margin-1">
           Edit
         </Button>
-        <Button onClick={onToggleEdit} className="btn  btn--red margin-1">
+        <Button
+          style={{ float: "right" }}
+          onClick={onToggleEdit}
+          className="btn  btn--red margin-1"
+        >
           Delete
         </Button>
         <div className="border padding-4">

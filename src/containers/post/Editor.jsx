@@ -32,15 +32,28 @@ export class Editor extends Component {
     });
   }
 
-  onAdd = data => {
-    console.log(this.refs.textarea.focus());
-
-    console.log(data);
+  onAdd = (tag, cursorStart, cursorEnd) => {
+    const { content } = this.state;
+    const { selectionStart } = this.textarea;
+    const newContent = `${content.slice(
+      0,
+      selectionStart
+    )}${tag}${content.slice(selectionStart)}`;
+    this.setState(
+      {
+        content: newContent
+      },
+      () => {
+        this.textarea.setSelectionRange(
+          selectionStart + cursorStart,
+          selectionStart + cursorStart + cursorEnd
+        );
+        this.textarea.focus();
+      }
+    );
   };
 
   onChange = e => {
-    console.log(e.target.selectionStart);
-
     this.setState(
       {
         [e.target.name]: e.target.value
@@ -53,6 +66,7 @@ export class Editor extends Component {
 
   onSubmit = e => {
     this.props.onSubmit();
+    this.props.onToggleEdit();
   };
 
   render() {
@@ -90,19 +104,18 @@ export class Editor extends Component {
           </Control>
         </Group>
         <Control>
-          <Label>
+          <Label htmlFor="textarea">
             <Heading2>Content</Heading2>
           </Label>
           <EditNav onAdd={this.onAdd} />
           <Textarea
-            ref="textarea"
+            node={el => (this.textarea = el)}
             onChange={this.onChange}
             style={{ width: "100%" }}
             name="content"
-            id=""
+            id="textarea"
             className="editor"
             value={content}
-            cols="30"
             rows="50"
           />
         </Control>
