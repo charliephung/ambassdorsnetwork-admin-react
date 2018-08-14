@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { matchPath } from "react-router-dom";
 import api from "../actions/api";
-import Editor from "containers/post/Editor";
-import Preview from "containers/post/Preview";
+import Editor from "containers/post-page/Editor";
+import Preview from "containers/post-page/Preview";
 import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
 
 export class PostPage extends Component {
@@ -20,6 +20,10 @@ export class PostPage extends Component {
       });
     });
   }
+  componentWillMount() {
+    this.props.actViewPost({});
+  }
+
   onToggleEdit = () => {
     const { onEdit } = this.state;
     this.setState({
@@ -30,6 +34,7 @@ export class PostPage extends Component {
   onSubmit = () => {
     const { viewPost } = this.props;
     this.props.actUpdatePost(viewPost);
+    this.onToggleEdit();
   };
 
   render() {
@@ -38,6 +43,7 @@ export class PostPage extends Component {
     const { viewPost } = this.props;
     const layout = onEdit ? (
       <Editor
+        onChange={data => this.props.actViewPost(data)}
         onSubmit={this.onSubmit}
         actViewPost={this.props.actViewPost}
         onToggleEdit={this.onToggleEdit}

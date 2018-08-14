@@ -3,18 +3,14 @@ import Nav from "components/common/nav/Nav";
 import { connect } from "react-redux";
 import { Textarea } from "../components/common/form/Form";
 import { actFetchPosts } from "../actions/posts/actPosts";
-import PostContainer from "../containers/admin/PostContainer";
+import PostContainer from "../containers/admin-page/PostContainer";
 import api from "../actions/api";
 
 const wrapperStyles = { width: "100%" };
 const textareaStyles = { width: "100%", height: "500px", padding: "1rem" };
-const nav = {
-  edit: ["Bold", "Italic", "Heading", "Link", "Image"],
-  post: ["Add"]
-};
 
 class AdminPage extends Component {
-  state = { onView: false, onEdit: false };
+  state = {};
 
   componentDidMount() {
     this.props.fetchPosts();
@@ -42,12 +38,8 @@ class AdminPage extends Component {
       return newArr;
     }, []);
 
-    const showNav = onEdit ? nav.edit : nav.post;
-    const body = onEdit ? (
-      <Textarea style={textareaStyles} />
-    ) : (
-      <PostContainer onView={this.onView} posts={allPost} />
-    );
+    const showNav = [];
+    const body = <PostContainer onView={this.onView} posts={allPost} />;
     return (
       <div style={wrapperStyles}>
         <Nav>

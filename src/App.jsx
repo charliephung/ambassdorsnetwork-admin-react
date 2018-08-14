@@ -12,8 +12,8 @@ const App = () => {
   return (
     <Router>
       <Fragment>
-        <NavBar />
-        <div className="container flex">
+        <NavBar className="fluid" />
+        <div className="container fluid flex">
           <Switch>
             <AuthRoute path="/posts" component={SideNav} />
           </Switch>

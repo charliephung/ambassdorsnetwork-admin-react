@@ -8,10 +8,10 @@ export class NavBar extends Component {
     this.props.logout();
   };
   render() {
-    const { user } = this.props.auth;
+    const { user, className } = this.props.auth;
     return (
-      <Nav>
-        <div className="container">
+      <Nav className={className}>
+        <div className="container fluid">
           <Nav.List>
             <Nav.Item>
               <FaUser />

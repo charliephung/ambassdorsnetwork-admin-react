@@ -1,19 +1,25 @@
 .post {
-    width: 150px;
+    width: 165px;
     height: min-content;
     padding: 1rem;
     overflow: hidden;
-    background-color: $color-lightdark;
+    background-color: $color-light;
+    color: $color-dark;
     border: 1px solid rgb(70, 68, 68);
     border-radius: 20px;
+    & p {
+        color: $color-dark;
+    }
     &__image {
         width: 100%;
         height: auto;
     }
-    &__heading {
+    &__heading,
+    &__email {
         width: 150px;
         height: 30px;
         overflow: hidden;
+        color: $color-dark;
     }
     &__view {
         &>img {

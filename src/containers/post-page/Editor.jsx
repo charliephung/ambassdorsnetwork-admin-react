@@ -13,22 +13,21 @@ import { Heading2 } from "components/common/heading/Heading";
 import EditNav from "containers/navbar/EditNav";
 
 export class Editor extends Component {
-  state = { ambassadorId: "", heading: "", image: "", content: "" };
+  state = { ambassadorId: "", heading: "", image: "", content: "", postId: "" };
   componentDidMount() {
-    const match = matchPath(this.props.location.pathname, {
-      path: "/posts/:ambassadorId/post/:postId"
-    });
     const {
-      content = "<p></p>",
-      heading = "loading",
-      image = ""
+      content = "",
+      heading = "",
+      image = "",
+      ambassadorId = "",
+      postId = ""
     } = this.props.post;
     this.setState({
       heading,
       image,
       content,
-      ambassadorId: match.params.ambassadorId,
-      postId: match.params.postId
+      ambassadorId,
+      postId
     });
   }
 
@@ -59,14 +58,13 @@ export class Editor extends Component {
         [e.target.name]: e.target.value
       },
       () => {
-        this.props.actViewPost(this.state);
+        this.props.onChange(this.state);
       }
     );
   };
 
   onSubmit = e => {
     this.props.onSubmit();
-    this.props.onToggleEdit();
   };
 
   render() {
