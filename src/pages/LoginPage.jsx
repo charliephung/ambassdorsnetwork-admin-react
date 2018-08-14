@@ -1,11 +1,11 @@
 import React from "react";
-import LoginFormContainer from "containers/login/LoginFormContainer";
+import LoginForm from "containers/login-form/LoginForm";
 
 const LoginPage = () => {
   return (
     <div className="container padding-4">
       <div className="center-element">
-        <LoginFormContainer />
+        <LoginForm />
       </div>
     </div>
   );

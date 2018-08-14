@@ -21,16 +21,18 @@ export class Preview extends Component {
         >
           Delete
         </Button>
-        <div className="border padding-4">
-          <h1>{heading}</h1>
-          <img style={{ width: "100%" }} src={image} alt="" />
+        <div className="container">
+          <div className="border padding-4">
+            <h1>{heading}</h1>
+            <img style={{ width: "100%" }} src={image} alt="" />
+          </div>
+          <br />
+          <br />
+          <div
+            className="post__view"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
-        <br />
-        <br />
-        <div
-          className="post__view"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
       </div>
     );
   }

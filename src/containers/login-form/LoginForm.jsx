@@ -12,7 +12,7 @@ import {
 import { Button } from "components/common/button/Button";
 import { Heading1 } from "components/common/heading/Heading";
 
-export class LoginFormContainer extends Component {
+export class LoginForm extends Component {
   state = { email: "", password: "", error: {} };
   onChange = e => {
     this.setState({
@@ -82,4 +82,4 @@ const mapDispatch = {
 export default connect(
   mapState,
   mapDispatch
-)(LoginFormContainer);
+)(LoginForm);

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { matchPath } from "react-router-dom";
 import api from "../actions/api";
-import Editor from "containers/post-page/Editor";
-import Preview from "containers/post-page/Preview";
+import EditorForm from "containers/editor-form/EditForm";
+import Preview from "containers/editor-form/Preview";
 import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
 
 export class PostPage extends Component {
@@ -42,7 +42,7 @@ export class PostPage extends Component {
 
     const { viewPost } = this.props;
     const layout = onEdit ? (
-      <Editor
+      <EditorForm
         onChange={data => this.props.actViewPost(data)}
         onSubmit={this.onSubmit}
         actViewPost={this.props.actViewPost}
@@ -52,7 +52,7 @@ export class PostPage extends Component {
     ) : (
       <Preview onToggleEdit={this.onToggleEdit} post={viewPost} />
     );
-    return <div className="container margin-2">{layout}</div>;
+    return <div className="container fluid margin-2">{layout}</div>;
   }
 }
 
