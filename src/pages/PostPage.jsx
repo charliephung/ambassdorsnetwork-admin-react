@@ -20,10 +20,9 @@ export class PostPage extends Component {
       });
     });
   }
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.actViewPost({});
   }
-
   onToggleEdit = () => {
     const { onEdit } = this.state;
     this.setState({
@@ -51,9 +50,9 @@ export class PostPage extends Component {
         selectDisabled
       />
     ) : (
-      <Preview onToggleEdit={this.onToggleEdit} post={viewPost} />
+      <Preview post={viewPost} />
     );
-    return <div className="container fluid margin-2">{layout}</div>;
+    return <div className="container scrollY fluid margin-2">{layout}</div>;
   }
 }
 

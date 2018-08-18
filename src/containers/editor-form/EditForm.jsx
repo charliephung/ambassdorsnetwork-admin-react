@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button } from "components/common/button/Button";
+import firebase from "firebase";
 import PropTypes from "prop-types";
 import {
   Form,
@@ -45,17 +45,16 @@ class EditorForm extends Component {
       time
     });
   }
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit();
-  };
+
   onEditorChange = (value, cb) => {
     this.setState(
       {
         content: value
       },
       () => {
-        this.props.actViewPost(this.state);
+        if (this.props.onChange) {
+          this.props.onChange(this.state);
+        }
         if (cb) {
           cb();
         }
@@ -68,13 +67,15 @@ class EditorForm extends Component {
         [e.target.name]: e.target.value
       },
       () => {
-        this.props.actViewPost(this.state);
+        if (this.props.onChange) {
+          this.props.onChange(this.state);
+        }
       }
     );
   };
 
   render() {
-    const { onToggleEdit, className, posts, selectDisabled } = this.props;
+    const { className, posts, selectDisabled } = this.props;
     const { heading, image, content, ambassadorId, day, time } = this.state;
     let selectedOption = 0;
     const options = Object.keys(posts).map(ele => {
@@ -97,27 +98,12 @@ class EditorForm extends Component {
 
     return (
       <Form className={className}>
-        <Button
-          onClick={this.onSubmit}
-          type="submit"
-          className="btn btn--green  margin-1"
-        >
-          Save
-        </Button>
-        <Button
-          type="button"
-          onClick={onToggleEdit}
-          className="btn btn--lightblue margin-1"
-        >
-          Preview
-        </Button>
         <Group>
           <Control>
             <Label>
               <Heading2>Ambassador</Heading2>
             </Label>
             <Select
-              required
               onChange={this.onChange}
               name="ambassadorId"
               disabled={selectDisabled}
@@ -130,7 +116,6 @@ class EditorForm extends Component {
               <Heading2>Date</Heading2>
             </Label>
             <Input
-              required
               onChange={this.onChange}
               name="day"
               type="date"
@@ -138,7 +123,6 @@ class EditorForm extends Component {
               disabled={selectDisabled}
             />
             <Input
-              required
               onChange={this.onChange}
               name="time"
               type="time"
@@ -150,23 +134,13 @@ class EditorForm extends Component {
             <Label>
               <Heading2>Heading</Heading2>
             </Label>
-            <Input
-              required
-              onChange={this.onChange}
-              name="heading"
-              value={heading}
-            />
+            <Input onChange={this.onChange} name="heading" value={heading} />
           </Control>
           <Control>
             <Label>
               <Heading2>Header Image</Heading2>
             </Label>
-            <Input
-              required
-              onChange={this.onChange}
-              name="image"
-              value={image}
-            />
+            <Input onChange={this.onChange} name="image" value={image} />
           </Control>
         </Group>
         <Control>
@@ -187,10 +161,8 @@ class EditorForm extends Component {
 }
 
 EditorForm.propTypes = {
-  actViewPost: PropTypes.func.isRequired,
   onChange: PropTypes.func,
-  post: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  post: PropTypes.object.isRequired
 };
 
 const mapState = state => ({

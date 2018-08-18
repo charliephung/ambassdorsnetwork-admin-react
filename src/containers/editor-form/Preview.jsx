@@ -1,22 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Button } from "components/common/button/Button";
 
 export class Preview extends Component {
   render() {
     const { content = "<p></p>", heading = "", image = "" } = this.props.post;
-    const { onToggleEdit, className } = this.props;
+    const { className } = this.props;
     return (
       <div className={className}>
-        <Button onClick={onToggleEdit} className="btn  btn--lightblue margin-1">
-          Edit
-        </Button>
-        <Button
-          style={{ float: "right" }}
-          onClick={onToggleEdit}
-          className="btn  btn--red margin-1"
-        >
-          Delete
-        </Button>
         <div className="container">
           <div className="border padding-4">
             <h1>{heading}</h1>

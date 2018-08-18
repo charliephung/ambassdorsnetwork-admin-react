@@ -1,30 +1,20 @@
 import React from "react";
-import { FaSearch, FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import Navbar from "components/common/nav/Nav";
-import { Input, Control, Label } from "components/common/form/Form";
-const ToolBar = ({ onToggleEditor }) => {
+const ToolBar = props => {
+  const items = props.items.map((child, index) => {
+    return (
+      <Navbar.Item
+        key={index}
+        style={{ alignItems: "center" }}
+        className="navbar__item--edit flex"
+      >
+        {child.main}
+      </Navbar.Item>
+    );
+  });
   return (
     <Navbar className="navbar--dark ">
-      <Navbar.List>
-        <Navbar.Item
-          // onClick={onToggleEditor}
-          className="navbar__item--edit"
-        >
-          <Link to="/posts/create">
-            <FaPlus style={{ height: "100%" }} />
-          </Link>
-        </Navbar.Item>
-        <Navbar.Item className="navbar__item--edit ">
-          <Control className="flex">
-            <Label htmlFor="search">
-              <FaSearch style={{ height: "100%" }} />
-            </Label>
-            &nbsp;
-            <Input style={{ height: "100%" }} id="search" />
-          </Control>
-        </Navbar.Item>
-      </Navbar.List>
+      <Navbar.List>{items}</Navbar.List>
     </Navbar>
   );
 };

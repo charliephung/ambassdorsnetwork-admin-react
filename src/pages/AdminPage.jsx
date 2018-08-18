@@ -1,13 +1,36 @@
 import React, { Component, Fragment } from "react";
+import { FaPlus, FaImages } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { actFetchPosts } from "actions/posts/actPosts";
 import PostContainer from "containers/post/PostContainer";
 import ToolBar from "containers/tool-bar/ToolBar";
+import { Input, Control, Label } from "components/common/form/Form";
+import { actViewPost, actCreatePost } from "actions/posts/actPosts";
 
-const wrapperStyles = { width: "100%" };
+const toolsBar = [
+  {
+    main: (
+      <Link to="/posts/create">
+        <FaPlus style={{ height: "100%" }} />
+      </Link>
+    )
+  },
+  {
+    main: (
+      <Link to="/posts/image">
+        <FaImages style={{ height: "100%" }} />
+      </Link>
+    )
+  }
+];
+
 class AdminPage extends Component {
   componentDidMount() {
     this.props.actFetchPosts();
+  }
+  componentWillUnmount() {
+    this.props.actViewPost({});
   }
   render() {
     const { posts } = this.props;
@@ -32,9 +55,9 @@ class AdminPage extends Component {
 
     const body = <PostContainer onView={this.onView} posts={allPost} />;
     return (
-      <div style={wrapperStyles}>
-        <ToolBar onToggleEditor={this.onToggleEditor} />
-        <div>{body}</div>
+      <div>
+        <ToolBar items={toolsBar} />
+        <div className="scrollY">{body}</div>
       </div>
     );
   }
@@ -45,7 +68,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = {
-  actFetchPosts
+  actFetchPosts,
+  actViewPost
 };
 
 export default connect(

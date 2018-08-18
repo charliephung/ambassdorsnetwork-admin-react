@@ -1,45 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actViewPost, actCreatePost } from "actions/posts/actPosts";
+import { FaSave, FaEye, FaEdit } from "react-icons/fa";
 import EditorForm from "containers/editor-form/EditForm";
 import Preview from "containers/editor-form/Preview";
 import firebase from "firebase";
+import ToolBar from "containers/tool-bar/ToolBar";
 
 export class CreatePage extends Component {
   state = { onEdit: true };
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.actViewPost({});
   }
-  onToggleEdit = () => {
-    const { onEdit } = this.state;
-    this.setState({
-      onEdit: !onEdit
-    });
+  onEdit = () => {
+    this.setState({ onEdit: true });
+    console.log("here");
+  };
+  onUnEdit = () => {
+    this.setState({ onEdit: false });
   };
   onSubmit = () => {
     const { key } = firebase
       .database()
       .ref("/post")
       .push();
+    console.log({ ...this.props.viewPost, postId: key });
 
     this.props.actCreatePost({ ...this.props.viewPost, postId: key });
-    this.onToggleEdit();
+    this.onUnEdit();
   };
   render() {
     const { onEdit } = this.state;
     const { viewPost } = this.props;
+    const toolItem = [
+      { main: <FaEdit onClick={this.onEdit} /> },
+      { main: <FaEye onClick={this.onUnEdit} /> },
+      { main: <FaSave onClick={this.onSubmit} /> }
+    ];
     const layout = onEdit ? (
       <EditorForm
         onChange={data => this.props.actViewPost(data)}
-        onSubmit={this.onSubmit}
-        actViewPost={this.props.actViewPost}
-        onToggleEdit={this.onToggleEdit}
         post={viewPost}
       />
     ) : (
-      <Preview onToggleEdit={this.onToggleEdit} post={viewPost} />
+      <Preview post={viewPost} />
     );
-    return <div className="container fluid margin-2">{layout}</div>;
+    return (
+      <div className="container scrollY fluid">
+        <ToolBar items={toolItem} />
+        <div className="margin-3">{layout}</div>
+      </div>
+    );
   }
 }
 
