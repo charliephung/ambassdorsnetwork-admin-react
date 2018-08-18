@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actViewPost, actCreatePost } from "actions/posts/actPosts";
 import EditorForm from "containers/editor-form/EditForm";
@@ -7,32 +7,26 @@ import firebase from "firebase";
 
 export class CreatePage extends Component {
   state = { onEdit: true };
-
   componentWillMount() {
     this.props.actViewPost({});
   }
-
   onToggleEdit = () => {
     const { onEdit } = this.state;
     this.setState({
       onEdit: !onEdit
     });
   };
-
   onSubmit = () => {
     const { key } = firebase
       .database()
       .ref("/post")
       .push();
-    console.log({ ...this.props.viewPost, postId: key });
 
-    // this.props.actCreatePost({ ...this.props.viewPost, postId: key });
-    // this.onToggleEdit();
+    this.props.actCreatePost({ ...this.props.viewPost, postId: key });
+    this.onToggleEdit();
   };
-
   render() {
     const { onEdit } = this.state;
-
     const { viewPost } = this.props;
     const layout = onEdit ? (
       <EditorForm
@@ -54,7 +48,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = {
-  actViewPost
+  actViewPost,
+  actCreatePost
 };
 
 export default connect(

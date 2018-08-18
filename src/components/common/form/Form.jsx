@@ -38,7 +38,7 @@ export const Input = props => {
 export const Select = props => {
   const { children, className, ...rest } = props;
   return (
-    <select className={`form__input ${className ? className : ""}`} {...rest}>
+    <select className={`form__select ${className ? className : ""}`} {...rest}>
       {children}
     </select>
   );
@@ -47,7 +47,7 @@ export const Select = props => {
 export const Option = props => {
   const { children, className, ...rest } = props;
   return (
-    <option className={`form__input ${className ? className : ""}`} {...rest}>
+    <option className={`form__option ${className ? className : ""}`} {...rest}>
       {children}
     </option>
   );

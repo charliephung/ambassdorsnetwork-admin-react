@@ -17,6 +17,18 @@
         &>textarea {
             font-size: 1.8rem;
         }
+        &>select {
+            padding: 0 .5rem;
+            width: 100%;
+            height: 30px;
+            font-size: 1.8rem;
+        }
+        &>option {
+            padding: 0 .5rem;
+            width: 100%;
+            height: 30px;
+            font-size: 1.8rem;
+        }
     }
     &__label {
         margin-right: auto;

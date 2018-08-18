@@ -1,35 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import {
-  actFetchPosts,
-  actViewPost,
-  actCreatePost
-} from "actions/posts/actPosts";
+import { actFetchPosts } from "actions/posts/actPosts";
 import PostContainer from "containers/post/PostContainer";
 import ToolBar from "containers/tool-bar/ToolBar";
-import firebase from "firebase";
 
 const wrapperStyles = { width: "100%" };
-const textareaStyles = { width: "100%", height: "500px", padding: "1rem" };
-// TODO
-// SELECT OPTION
 class AdminPage extends Component {
   componentDidMount() {
     this.props.actFetchPosts();
   }
-  componentWillMount() {
-    this.props.actViewPost({});
-  }
-
-  onCreatePost = () => {
-    const { key } = firebase
-      .database()
-      .ref("/post")
-      .push();
-    this.props.actCreatePost({ ...this.props.viewPost, postId: key });
-    this.onToggleEditor();
-  };
-
   render() {
     const { posts } = this.props;
     const ambassadors = Object.keys(posts).map(ele => {
@@ -62,14 +41,11 @@ class AdminPage extends Component {
 }
 
 const mapState = state => ({
-  posts: state.posts,
-  viewPost: state.viewPost
+  posts: state.posts
 });
 
 const mapDispatch = {
-  actFetchPosts,
-  actViewPost,
-  actCreatePost
+  actFetchPosts
 };
 
 export default connect(

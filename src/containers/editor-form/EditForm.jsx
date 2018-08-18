@@ -9,7 +9,6 @@ import {
   Control,
   Input,
   Label,
-  Textarea,
   Select,
   Option
 } from "components/common/form/Form";
@@ -32,17 +31,22 @@ class EditorForm extends Component {
       heading = "",
       image = "",
       ambassadorId = "",
-      postId = ""
+      postId = "",
+      day = "",
+      time = ""
     } = this.props.post;
     this.setState({
       heading,
       image,
       content,
       ambassadorId,
-      postId
+      postId,
+      day,
+      time
     });
   }
   onSubmit = e => {
+    e.preventDefault();
     this.props.onSubmit();
   };
   onEditorChange = (value, cb) => {
@@ -71,20 +75,31 @@ class EditorForm extends Component {
 
   render() {
     const { onToggleEdit, className, posts, selectDisabled } = this.props;
-    const { heading, image, content, ambassadorId } = this.state;
+    const { heading, image, content, ambassadorId, day, time } = this.state;
+    let selectedOption = 0;
     const options = Object.keys(posts).map(ele => {
+      if (ambassadorId === ele) {
+        selectedOption = 1;
+      }
       return (
         <Option value={ele} selected={ambassadorId === ele} key={ele}>
           {posts[ele].email}
         </Option>
       );
     });
+    if (selectedOption === 0) {
+      options.push(
+        <Option disabled selected value="0" key={0}>
+          -- select an option --
+        </Option>
+      );
+    }
 
     return (
-      <div>
+      <Form className={className}>
         <Button
           onClick={this.onSubmit}
-          type="button"
+          type="submit"
           className="btn btn--green  margin-1"
         >
           Save
@@ -96,64 +111,77 @@ class EditorForm extends Component {
         >
           Preview
         </Button>
-        <Form className={className}>
-          <Group>
-            <Control>
-              <Label>
-                <Heading2>Ambassador</Heading2>
-              </Label>
-              <Select
-                onChange={this.onChange}
-                name="ambassadorId"
-                disabled={selectDisabled}
-              >
-                {options}
-              </Select>
-            </Control>
-            <Control>
-              <Label>
-                <Heading2>Date</Heading2>
-              </Label>
-              <Input
-                onChange={this.onChange}
-                name="day"
-                type="date"
-                value={day}
-              />
-              <Input
-                onChange={this.onChange}
-                name="time"
-                type="time"
-                value={time}
-              />
-            </Control>
-            <Control>
-              <Label>
-                <Heading2>Heading</Heading2>
-              </Label>
-              <Input onChange={this.onChange} name="heading" value={heading} />
-            </Control>
-            <Control>
-              <Label>
-                <Heading2>Header Image</Heading2>
-              </Label>
-              <Input onChange={this.onChange} name="image" value={image} />
-            </Control>
-          </Group>
+        <Group>
           <Control>
-            <Label htmlFor="textarea">
-              <Heading2>Content</Heading2>
+            <Label>
+              <Heading2>Ambassador</Heading2>
             </Label>
-            <Editor
-              value={content}
-              name="content"
-              onChange={(value, cb) => {
-                this.onEditorChange(value, cb);
-              }}
+            <Select
+              required
+              onChange={this.onChange}
+              name="ambassadorId"
+              disabled={selectDisabled}
+            >
+              {options}
+            </Select>
+          </Control>
+          <Control>
+            <Label>
+              <Heading2>Date</Heading2>
+            </Label>
+            <Input
+              required
+              onChange={this.onChange}
+              name="day"
+              type="date"
+              value={day}
+              disabled={selectDisabled}
+            />
+            <Input
+              required
+              onChange={this.onChange}
+              name="time"
+              type="time"
+              value={time}
+              disabled={selectDisabled}
             />
           </Control>
-        </Form>
-      </div>
+          <Control>
+            <Label>
+              <Heading2>Heading</Heading2>
+            </Label>
+            <Input
+              required
+              onChange={this.onChange}
+              name="heading"
+              value={heading}
+            />
+          </Control>
+          <Control>
+            <Label>
+              <Heading2>Header Image</Heading2>
+            </Label>
+            <Input
+              required
+              onChange={this.onChange}
+              name="image"
+              value={image}
+            />
+          </Control>
+        </Group>
+        <Control>
+          <Label htmlFor="textarea">
+            <Heading2>Content</Heading2>
+          </Label>
+          <Editor
+            value={content}
+            name="content"
+            onChange={(value, cb) => {
+              this.onEditorChange(value, cb);
+            }}
+          />
+        </Control>
+      </Form>
     );
   }
 }

@@ -35,6 +35,7 @@ export const actCreatePost = data => dispatch => {
     image: data.image,
     heading: data.heading
   };
+
   api.createData(dataCreate, data.ambassadorId, data.postId).then(() => {
     api.createPost(postCreate, data.postId).then(() => {
       api.fecthPosts().once("value", ss => {
