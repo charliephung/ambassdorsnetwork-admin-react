@@ -6,7 +6,7 @@ import AuthRoute from "components/route/AuthRoute";
 import GuestRoute from "components/route/GuestRoute";
 import "./styles/_main.scss";
 import NavBar from "containers/navbar/NavBar";
-import { LoginPage, AdminPage, SideNav, PostPage } from "routes";
+import { LoginPage, AdminPage, SideNav, PostPage, CreatePage } from "routes";
 
 const App = () => {
   return (
@@ -20,10 +20,12 @@ const App = () => {
           <Switch>
             <AuthRoute exact path="/" component={AdminPage} />
             <AuthRoute exact path="/posts" component={AdminPage} />
+            <AuthRoute exact path="/posts/create" component={CreatePage} />
             <AuthRoute
               path="/posts/:ambassadorId/post/:postId"
               component={PostPage}
             />
+
             <GuestRoute exact path="/login" component={LoginPage} />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>

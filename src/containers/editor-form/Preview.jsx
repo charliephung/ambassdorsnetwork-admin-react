@@ -3,11 +3,7 @@ import { Button } from "components/common/button/Button";
 
 export class Preview extends Component {
   render() {
-    const {
-      content = "<p></p>",
-      heading = "loading",
-      image = ""
-    } = this.props.post;
+    const { content = "<p></p>", heading = "", image = "" } = this.props.post;
     const { onToggleEdit, className } = this.props;
     return (
       <div className={className}>

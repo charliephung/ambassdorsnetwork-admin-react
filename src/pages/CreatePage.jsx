@@ -1,25 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { matchPath } from "react-router-dom";
-import api from "../actions/api";
+import { actViewPost, actCreatePost } from "actions/posts/actPosts";
 import EditorForm from "containers/editor-form/EditForm";
 import Preview from "containers/editor-form/Preview";
-import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
+import firebase from "firebase";
 
-export class PostPage extends Component {
-  state = { onEdit: false };
-  componentDidMount() {
-    const match = matchPath(this.props.location.pathname, {
-      path: "/posts/:ambassadorId/post/:postId"
-    });
-    api.fecthPost(match.params.postId).then(res => {
-      this.props.actViewPost({
-        ...res.val(),
-        ambassadorId: match.params.ambassadorId,
-        postId: match.params.postId
-      });
-    });
-  }
+export class CreatePage extends Component {
+  state = { onEdit: true };
+
   componentWillMount() {
     this.props.actViewPost({});
   }
@@ -32,9 +20,14 @@ export class PostPage extends Component {
   };
 
   onSubmit = () => {
-    const { viewPost } = this.props;
-    this.props.actUpdatePost(viewPost);
-    this.onToggleEdit();
+    const { key } = firebase
+      .database()
+      .ref("/post")
+      .push();
+    console.log({ ...this.props.viewPost, postId: key });
+
+    // this.props.actCreatePost({ ...this.props.viewPost, postId: key });
+    // this.onToggleEdit();
   };
 
   render() {
@@ -48,7 +41,6 @@ export class PostPage extends Component {
         actViewPost={this.props.actViewPost}
         onToggleEdit={this.onToggleEdit}
         post={viewPost}
-        selectDisabled
       />
     ) : (
       <Preview onToggleEdit={this.onToggleEdit} post={viewPost} />
@@ -62,11 +54,10 @@ const mapState = state => ({
 });
 
 const mapDispatch = {
-  actViewPost,
-  actUpdatePost
+  actViewPost
 };
 
 export default connect(
   mapState,
   mapDispatch
-)(PostPage);
+)(CreatePage);

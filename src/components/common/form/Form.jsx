@@ -35,6 +35,24 @@ export const Input = props => {
   );
 };
 
+export const Select = props => {
+  const { children, className, ...rest } = props;
+  return (
+    <select className={`form__input ${className ? className : ""}`} {...rest}>
+      {children}
+    </select>
+  );
+};
+
+export const Option = props => {
+  const { children, className, ...rest } = props;
+  return (
+    <option className={`form__input ${className ? className : ""}`} {...rest}>
+      {children}
+    </option>
+  );
+};
+
 export const Control = props => {
   const { children, className, ...rest } = props;
   return (

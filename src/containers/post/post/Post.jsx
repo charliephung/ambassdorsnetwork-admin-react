@@ -7,11 +7,12 @@ const Post = props => {
   const { status } = post;
   const isNews = status.newsAndEvents ? "btn--green" : "btn--orange";
   const isBlog = status.blogs ? "btn--green" : "btn--orange";
+
   return (
     <div className="post margin-1">
       <Link to={"/posts/" + post.id + "/post/" + post.postId}>
         <p className="post__heading">{post.heading}</p>
-        <img className="post__image" src={post.profile} />
+        <img className="post__image" src={post.image} />
         <p className="post__email">{post.email}</p>
         <p>Date: {post.date.day}</p>
         <p>Time: {post.date.time}</p>
