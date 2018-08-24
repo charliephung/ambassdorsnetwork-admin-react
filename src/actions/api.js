@@ -27,7 +27,12 @@ const api = {
     return fireDB
       .ref(`/data/${ambassadorId}/post/${postId}`)
       .update(data, ss => ss);
-  }
+  },
+  fecthImages: () => fireDB.ref("/image-gallery").once("value", ss => ss.val()),
+  toggleStatus: (ambassadorId, postId, fields, status) =>
+    fireDB
+      .ref(`/data/${ambassadorId}/post/${postId}/status/`)
+      .update({ [fields]: status }, ss => ss)
 };
 
 export default api;

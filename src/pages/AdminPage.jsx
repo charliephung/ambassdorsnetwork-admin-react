@@ -6,7 +6,11 @@ import { actFetchPosts } from "actions/posts/actPosts";
 import PostContainer from "containers/post/PostContainer";
 import ToolBar from "containers/tool-bar/ToolBar";
 import { Input, Control, Label } from "components/common/form/Form";
-import { actViewPost, actCreatePost } from "actions/posts/actPosts";
+import {
+  actViewPost,
+  actCreatePost,
+  actUpdateStatus
+} from "actions/posts/actPosts";
 
 const toolsBar = [
   {
@@ -32,8 +36,9 @@ class AdminPage extends Component {
   componentWillUnmount() {
     this.props.actViewPost({});
   }
+
   render() {
-    const { posts } = this.props;
+    const { posts, actUpdateStatus } = this.props;
     const ambassadors = Object.keys(posts).map(ele => {
       return { post: posts[ele], id: ele };
     });
@@ -53,7 +58,13 @@ class AdminPage extends Component {
       return newArr;
     }, []);
 
-    const body = <PostContainer onView={this.onView} posts={allPost} />;
+    const body = (
+      <PostContainer
+        actUpdateStatus={actUpdateStatus}
+        onView={this.onView}
+        posts={allPost}
+      />
+    );
     return (
       <div>
         <ToolBar items={toolsBar} />
@@ -69,7 +80,8 @@ const mapState = state => ({
 
 const mapDispatch = {
   actFetchPosts,
-  actViewPost
+  actViewPost,
+  actUpdateStatus
 };
 
 export default connect(

@@ -2,8 +2,10 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { matchPath } from "react-router-dom";
 import api from "../actions/api";
+import { FaSave, FaEye, FaEdit } from "react-icons/fa";
 import EditorForm from "containers/editor-form/EditForm";
 import Preview from "containers/editor-form/Preview";
+import ToolBar from "containers/tool-bar/ToolBar";
 import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
 
 export class PostPage extends Component {
@@ -23,36 +25,51 @@ export class PostPage extends Component {
   componentWillUnmount() {
     this.props.actViewPost({});
   }
-  onToggleEdit = () => {
-    const { onEdit } = this.state;
-    this.setState({
-      onEdit: !onEdit
-    });
+  onEdit = () => {
+    this.setState({ onEdit: true });
   };
-
+  onUnEdit = () => {
+    this.setState({ onEdit: false });
+  };
   onSubmit = () => {
     const { viewPost } = this.props;
-    this.props.actUpdatePost(viewPost);
-    this.onToggleEdit();
+    const { content, heading, ambassadorId } = this.props.viewPost;
+    if (content && heading && ambassadorId) {
+      this.props.actUpdatePost(viewPost);
+      this.onUnEdit();
+    } else {
+      alert("Some fields are missing");
+    }
   };
 
   render() {
     const { onEdit } = this.state;
-
+    const toolItem = onEdit
+      ? [
+          { main: <FaEdit onClick={this.onEdit} /> },
+          { main: <FaEye onClick={this.onUnEdit} /> },
+          { main: <FaSave onClick={this.onSubmit} /> }
+        ]
+      : [
+          { main: <FaEdit onClick={this.onEdit} /> },
+          { main: <FaEye onClick={this.onUnEdit} /> }
+        ];
     const { viewPost } = this.props;
     const layout = onEdit ? (
       <EditorForm
         onChange={data => this.props.actViewPost(data)}
-        onSubmit={this.onSubmit}
-        actViewPost={this.props.actViewPost}
-        onToggleEdit={this.onToggleEdit}
         post={viewPost}
         selectDisabled
       />
     ) : (
       <Preview post={viewPost} />
     );
-    return <div className="container scrollY fluid margin-2">{layout}</div>;
+    return (
+      <div className="container  fluid">
+        <ToolBar items={toolItem} />
+        <div className="page margin-3">{layout}</div>
+      </div>
+    );
   }
 }
 

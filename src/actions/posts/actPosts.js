@@ -1,6 +1,22 @@
 import { FETCH_POSTS, VIEW_POST } from "../constant";
 import api from "../api";
 
+export const actUpdateStatus = (
+  ambassadorId,
+  postId,
+  fields,
+  status
+) => dispatch => {
+  api.toggleStatus(ambassadorId, postId, fields, status).then(() => {
+    api.fecthPosts().once("value", ss => {
+      dispatch({
+        type: FETCH_POSTS,
+        payload: ss.val()
+      });
+    });
+  });
+};
+
 export const actFetchPosts = () => dispatch => {
   api.fecthPosts().once("value", ss => {
     dispatch({

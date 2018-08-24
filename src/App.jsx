@@ -25,7 +25,7 @@ const App = () => {
           className="container fluid flex"
         >
           <Switch>
-            <AuthRoute path="/posts" component={SideNav} />
+            <AuthRoute path="/" component={SideNav} />
           </Switch>
           <Switch>
             <AuthRoute exact path="/" component={AdminPage} />
@@ -38,7 +38,16 @@ const App = () => {
             />
 
             <GuestRoute exact path="/login" component={LoginPage} />
-            <Route render={() => <h1>Not Found</h1>} />
+            <Route
+              render={() => (
+                <div className="padding-4">
+                  <h1>Not Found</h1>
+                  <Link className=" center-element color-dark" to="/">
+                    Go to Home
+                  </Link>
+                </div>
+              )}
+            />
           </Switch>
         </div>
       </div>

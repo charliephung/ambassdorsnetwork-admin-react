@@ -14,12 +14,16 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 
+store.dispatch({
+  type: "LOGIN"
+});
+
 const fireAuth = firebase.auth();
 
 fireAuth.onAuthStateChanged(user => {
-  if (user) {
+  if (!user) {
     store.dispatch({
-      type: "LOGIN"
+      type: "LOGOUT"
     });
   }
 });
