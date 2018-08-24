@@ -67,7 +67,7 @@ export class PostPage extends Component {
     return (
       <div className="container  fluid">
         <ToolBar items={toolItem} />
-        <div className="page margin-3">{layout}</div>
+        <div className="page  margin-3">{layout}</div>
       </div>
     );
   }

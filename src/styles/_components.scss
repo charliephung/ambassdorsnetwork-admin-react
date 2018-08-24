@@ -8,4 +8,9 @@
     }
 }
 
-.editor {}
+.page {
+    height: calc(100vh - 56px - 6rem);
+    width: 100%;
+    overflow: auto;
+    padding-right: 6rem;
+}
