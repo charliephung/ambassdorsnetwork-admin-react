@@ -91,7 +91,7 @@ class EditorForm extends Component {
     if (selectedOption === 0) {
       options.push(
         <Option disabled selected value="0" key={0}>
-          -- select an option --
+          -- choose an author --
         </Option>
       );
     }
