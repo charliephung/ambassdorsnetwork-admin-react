@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -7,6 +8,7 @@ module.exports = {
   entry: ["./src/index.js"],
   output: {
     path: path.join(__dirname, "/dist"),
+    publicPath: "/",
     filename: "index_bundle.js"
   },
 
@@ -58,9 +60,16 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html"
-    })
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
     // new BundleAnalyzerPlugin()
   ],
-  devServer: { historyApiFallback: true },
-  devtool: "cheap-module-source-map"
+  devServer: {
+    contentBase: "./dist",
+    historyApiFallback: true,
+    hot: true
+  },
+  devtool: "cheap-eval-source-map"
 };

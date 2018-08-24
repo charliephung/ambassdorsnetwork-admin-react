@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FaUser, FaSignInAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Nav from "components/common/nav/Nav";
 import { actAuth } from "actions/auth/actAuth";
 export class NavBar extends Component {
@@ -14,8 +15,10 @@ export class NavBar extends Component {
         <div className="container fluid">
           <Nav.List>
             <Nav.Item>
-              <FaUser />
-              &nbsp; Ambassador admin
+              <Link className="color-dark" to="/">
+                <FaUser />
+                &nbsp; Ambassador admin
+              </Link>
             </Nav.Item>
 
             {user && (

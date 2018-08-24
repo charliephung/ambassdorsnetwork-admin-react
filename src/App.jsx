@@ -1,5 +1,11 @@
 import React, { Fragment } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 import AuthRoute from "components/route/AuthRoute";
@@ -25,7 +31,7 @@ const App = () => {
           className="container fluid flex"
         >
           <Switch>
-            <AuthRoute path="/" component={SideNav} />
+            <AuthRoute path="/posts" component={SideNav} />
           </Switch>
           <Switch>
             <AuthRoute exact path="/" component={AdminPage} />
@@ -38,16 +44,7 @@ const App = () => {
             />
 
             <GuestRoute exact path="/login" component={LoginPage} />
-            <Route
-              render={() => (
-                <div className="padding-4">
-                  <h1>Not Found</h1>
-                  <Link className=" center-element color-dark" to="/">
-                    Go to Home
-                  </Link>
-                </div>
-              )}
-            />
+            <Route render={() => <Redirect to="/login" />} />
           </Switch>
         </div>
       </div>
