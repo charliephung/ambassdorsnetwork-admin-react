@@ -14,7 +14,6 @@ export class CreatePage extends Component {
   }
   onEdit = () => {
     this.setState({ onEdit: true });
-    console.log("here");
   };
   onUnEdit = () => {
     this.setState({ onEdit: false });
@@ -24,7 +23,6 @@ export class CreatePage extends Component {
       .database()
       .ref("/post")
       .push();
-    console.log({ ...this.props.viewPost, postId: key });
 
     this.props.actCreatePost({ ...this.props.viewPost, postId: key });
     this.onUnEdit();
@@ -32,11 +30,16 @@ export class CreatePage extends Component {
   render() {
     const { onEdit } = this.state;
     const { viewPost } = this.props;
-    const toolItem = [
-      { main: <FaEdit onClick={this.onEdit} /> },
-      { main: <FaEye onClick={this.onUnEdit} /> },
-      { main: <FaSave onClick={this.onSubmit} /> }
-    ];
+    const toolItem = onEdit
+      ? [
+          { main: <FaEdit onClick={this.onEdit} /> },
+          { main: <FaEye onClick={this.onUnEdit} /> },
+          { main: <FaSave onClick={this.onSubmit} /> }
+        ]
+      : [
+          { main: <FaEdit onClick={this.onEdit} /> },
+          { main: <FaEye onClick={this.onUnEdit} /> }
+        ];
     const layout = onEdit ? (
       <EditorForm
         onChange={data => this.props.actViewPost(data)}
