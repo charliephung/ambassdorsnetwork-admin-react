@@ -34,7 +34,7 @@ const App = () => {
             <AuthRoute path="/posts" component={SideNav} />
           </Switch>
           <Switch>
-            <AuthRoute exact path="/" component={AdminPage} />
+            <GuestRoute exact path="/login" component={LoginPage} />
             <AuthRoute exact path="/posts" component={AdminPage} />
             <AuthRoute exact path="/posts/image" component={ImagePage} />
             <AuthRoute exact path="/posts/create" component={CreatePage} />
