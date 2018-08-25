@@ -23,7 +23,7 @@ store.dispatch({
 fireAuth.onAuthStateChanged(user => {
   if (!user) {
     store.dispatch({
-      type: "LOOUT"
+      type: "LOGOUT"
     });
   }
 });
