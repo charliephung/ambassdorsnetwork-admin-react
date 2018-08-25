@@ -28,6 +28,10 @@ fireAuth.onAuthStateChanged(user => {
     store.dispatch({
       type: "LOGOUT"
     });
+  } else {
+    store.dispatch({
+      type: "LOGOUT"
+    });
   }
 });
 
