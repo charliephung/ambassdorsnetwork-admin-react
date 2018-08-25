@@ -35,9 +35,7 @@ const NavBar = props => {
   return (
     <DynamicImport
       load={() => import("containers/navbar/NavBar")}
-      render={Comp =>
-        Comp === null ? <h1>Loading...</h1> : <Comp {...props} />
-      }
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
     />
   );
 };

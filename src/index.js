@@ -16,9 +16,11 @@ const store = createStore(
 
 const fireAuth = firebase.auth();
 
-store.dispatch({
-  type: "LOGIN"
-});
+if (process.env.NODE_ENV != "production") {
+  store.dispatch({
+    type: "LOGIN"
+  });
+}
 
 fireAuth.onAuthStateChanged(user => {
   if (!user) {
