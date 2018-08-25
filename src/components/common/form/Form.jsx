@@ -65,7 +65,7 @@ export const Control = props => {
 export const Group = props => {
   const { children, className, ...rest } = props;
   return (
-    <div className={`form__group ${className ? className : ""}`}>
+    <div {...rest} className={`form__group ${className ? className : ""}`}>
       {children}
     </div>
   );

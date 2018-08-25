@@ -16,10 +16,14 @@ const store = createStore(
 
 const fireAuth = firebase.auth();
 
+store.dispatch({
+  type: "LOGIN"
+});
+
 fireAuth.onAuthStateChanged(user => {
-  if (user) {
+  if (!user) {
     store.dispatch({
-      type: "LOGIN"
+      type: "LOOUT"
     });
   }
 });

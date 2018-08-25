@@ -5,7 +5,8 @@ import {
   FaHeading,
   FaLink,
   FaImages,
-  FaParagraph
+  FaParagraph,
+  FaListUl
 } from "react-icons/fa";
 import Navbar from "components/common/nav/Nav";
 
@@ -50,6 +51,14 @@ export class EditNav extends Component {
             className="navbar__item--edit"
           >
             <FaImages />
+          </Navbar.Item>
+          <Navbar.Item
+            onClick={() =>
+              onAdd("<ul>\n  <li>1</li>\n  <li>2</li>\n</ul>", 11, 1)
+            }
+            className="navbar__item--edit"
+          >
+            <FaListUl />
           </Navbar.Item>
         </Navbar.List>
       </Navbar>

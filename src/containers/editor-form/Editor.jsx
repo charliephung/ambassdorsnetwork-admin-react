@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { Textarea } from "components/common/form/Form";
 import EditNav from "containers/navbar/EditNav";
+import PropTypes from "prop-types";
 
 export class Editor extends Component {
   state = { value: "" };
@@ -73,5 +74,14 @@ export class Editor extends Component {
     );
   }
 }
+
+Editor.propsTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.any
+};
+
+Editor.defaultProps = {
+  onChange: () => {}
+};
 
 export default withRouter(Editor);

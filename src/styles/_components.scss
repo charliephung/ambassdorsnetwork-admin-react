@@ -14,3 +14,13 @@
     overflow: auto;
     padding-right: 6rem;
 }
+
+#custom-preiew {
+    & * .post__view {
+        padding: 1rem;
+        box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, .2);
+        border-radius: 5px;
+        overflow: hidden;
+        border-top: 6px solid #ea5b0a;
+    }
+}

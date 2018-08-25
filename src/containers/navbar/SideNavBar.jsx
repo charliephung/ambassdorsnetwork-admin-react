@@ -14,8 +14,7 @@ export class SideNavContainer extends Component {
             <Link to="/posts/news">NEWS</Link>
           </Nav.Item>
           <Nav.Item>
-            {" "}
-            <Link to="/posts/news">USERS</Link>
+            <Link to="/posts/users">USERS</Link>
           </Nav.Item>
           <Nav.Item>
             <Link to="/posts/image">IMAGES</Link>
