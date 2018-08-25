@@ -6,7 +6,7 @@ export class DynamicImport extends Component {
   componentDidMount() {
     this.props.load().then(component => {
       this.setState(() => ({
-        component: component.default ? component.default : component
+        Comp: component.default ? component.default : component
       }));
     });
   }
@@ -15,7 +15,7 @@ export class DynamicImport extends Component {
   }
 }
 
-Greeting.propTypes = {
+DynamicImport.propTypes = {
   load: PropTypes.func.isRequired,
   render: PropTypes.func.isRequired
 };

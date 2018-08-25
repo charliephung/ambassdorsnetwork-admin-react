@@ -7,20 +7,31 @@ import {
   Redirect
 } from "react-router-dom";
 import { hot } from "react-hot-loader";
-
 import AuthRoute from "components/route/AuthRoute";
 import GuestRoute from "components/route/GuestRoute";
 import "./styles/_main.scss";
 import NavBar from "containers/navbar/NavBar";
-import {
-  LoginPage,
-  AdminPage,
-  SideNav,
-  PostPage,
-  CreatePage,
-  ImagePage
-} from "routes";
+import DynamicImport from "components/feature/DynamicImport";
+import { SideNav, routes } from "routes";
 
+const Routes = routes.map(r => {
+  const RouteType = r.type === "auth" ? AuthRoute : GuestRoute;
+  return (
+    <RouteType
+      key={r.path}
+      exact={r.exact}
+      path={r.path}
+      component={props => {
+        return (
+          <DynamicImport
+            load={r.import}
+            render={Comp => (Comp === null ? r.loading : <Comp {...props} />)}
+          />
+        );
+      }}
+    />
+  );
+});
 const App = () => {
   return (
     <Router>
@@ -33,19 +44,7 @@ const App = () => {
           <Switch>
             <AuthRoute path="/posts" component={SideNav} />
           </Switch>
-          <Switch>
-            <GuestRoute exact path="/login" component={LoginPage} />
-            <AuthRoute exact path="/posts" component={AdminPage} />
-            <AuthRoute exact path="/posts/image" component={ImagePage} />
-            <AuthRoute exact path="/posts/create" component={CreatePage} />
-            <AuthRoute
-              path="/posts/:ambassadorId/post/:postId"
-              component={PostPage}
-            />
-
-            <GuestRoute exact path="/login" component={LoginPage} />
-            <Route render={() => <Redirect to="/login" />} />
-          </Switch>
+          <Switch>{Routes}</Switch>
         </div>
       </div>
     </Router>

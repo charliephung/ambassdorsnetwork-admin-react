@@ -10,8 +10,13 @@ export class SideNavContainer extends Component {
           <Nav.Item>
             <Link to="/posts">POSTS</Link>
           </Nav.Item>
-          <Nav.Item>NEWS</Nav.Item>
-          <Nav.Item>USERS</Nav.Item>
+          <Nav.Item>
+            <Link to="/posts/news">NEWS</Link>
+          </Nav.Item>
+          <Nav.Item>
+            {" "}
+            <Link to="/posts/news">USERS</Link>
+          </Nav.Item>
           <Nav.Item>
             <Link to="/posts/image">IMAGES</Link>
           </Nav.Item>
