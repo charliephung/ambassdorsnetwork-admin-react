@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Table, Head, Body, Row, Data } from "../components/common/table/Table";
+import { Table, Head, Body, Row, Data } from "components/common/table/Table";
+import { Button } from "components/common/button/Button";
 
 export class UserPage extends Component {
   render() {
     return (
-      <div className="container scrollY  fluid">
+      <div
+        style={{ justifyContent: "center" }}
+        className="container scrollY flex fluid margin-1"
+      >
         <Table>
           <Head>
             <Row>
@@ -16,41 +20,29 @@ export class UserPage extends Component {
               <Data>Edit</Data>
             </Row>
           </Head>
+          <Body>
+            <Row className="border-bottom">
+              <Data width="20%">
+                <img
+                  style={{ width: "120px" }}
+                  src="https://firebasestorage.googleapis.com/v0/b/ambassadorsnetwork-f2db0.appspot.com/o/profile%2Fanya.sk.rus%40gmail.com719a6d-58e1e7-d5abf3img_1990.jpg?alt=media&token=87cc630c-57e9-4be2-abce-dc18cadfa768"
+                  alt=""
+                />
+              </Data>
+              <Data width="20%">anya.sk.rus@gmail.com</Data>
+              <Data width="15%">Anna Skuratova</Data>
+              <Data width="10%">1</Data>
+              <Data width="15%">
+                <Button className="btn--green">Active</Button>
+              </Data>
+              <Data width="20%">
+                <Button className="btn--orange">Edit</Button>
+                &nbsp;
+                <Button className="btn--red">Delete</Button>
+              </Data>
+            </Row>
+          </Body>
         </Table>
-        <table>
-          <tbody>
-            <tr>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Mexico</td>
-            </tr>
-            <tr>
-              <td>Ernst Handel</td>
-              <td>Roland Mendel</td>
-              <td>Austria</td>
-            </tr>
-            <tr>
-              <td>Island Trading</td>
-              <td>Helen Bennett</td>
-              <td>UK</td>
-            </tr>
-            <tr>
-              <td>Laughing Bacchus Winecellars</td>
-              <td>Yoshi Tannamuri</td>
-              <td>Canada</td>
-            </tr>
-            <tr>
-              <td>Magazzini Alimentari Riuniti</td>
-              <td>Giovanni Rovelli</td>
-              <td>Italy</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     );
   }

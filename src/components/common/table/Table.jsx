@@ -8,7 +8,7 @@ export const Head = props => {
     </thead>
   );
 };
-const Body = props => {
+export const Body = props => {
   const { children, className, ...rest } = props;
   return (
     <tbody {...rest} className={`table__body ${className ? className : ""}`}>
