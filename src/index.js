@@ -4,8 +4,6 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "reducers";
 import ReactDOM from "react-dom";
 import Spinner from "components/common/loading/Spinner";
-
-import App from "App";
 import thunk from "redux-thunk";
 import { firebaseConfig } from "configs/firebase.js";
 import firebase from "firebase";
@@ -33,14 +31,12 @@ fireAuth.onAuthStateChanged(user => {
   }
 });
 
-const App = props => (
-  <DynamicImport
-    load={() => import("App")}
-    render={Comp => (Comp === null ? <Spinner /> : <Comp {...props} />)}
-  />
-);
-
 ReactDOM.render(
-  <Provider store={store}>{App}</Provider>,
+  <Provider store={store}>
+    <DynamicImport
+      load={() => import("App")}
+      render={Comp => (Comp === null ? <Spinner /> : <Comp />)}
+    />
+  </Provider>,
   document.getElementById("root")
 );
