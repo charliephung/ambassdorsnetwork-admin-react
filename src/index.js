@@ -30,7 +30,7 @@ fireAuth.onAuthStateChanged(user => {
     });
   } else {
     store.dispatch({
-      type: "LOGOUT"
+      type: "LOGIN"
     });
   }
 });
