@@ -10,7 +10,6 @@ import { hot } from "react-hot-loader";
 import AuthRoute from "components/route/AuthRoute";
 import GuestRoute from "components/route/GuestRoute";
 import "./styles/_main.scss";
-import NavBar from "containers/navbar/NavBar";
 import DynamicImport from "components/feature/DynamicImport";
 import { SideNav, routes } from "routes";
 
@@ -32,6 +31,17 @@ const Routes = routes.map(r => {
     />
   );
 });
+const NavBar = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/navbar/NavBar")}
+      render={Comp =>
+        Comp === null ? <h1>Loading...</h1> : <Comp {...props} />
+      }
+    />
+  );
+};
+
 const App = () => {
   return (
     <Router>
