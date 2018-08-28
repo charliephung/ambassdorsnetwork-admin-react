@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import { firebaseConfig } from "configs/firebase.js";
 import firebase from "firebase";
 import DynamicImport from "components/feature/DynamicImport";
+import "./styles/styles.css";
 
 const store = createStore(
   rootReducer,

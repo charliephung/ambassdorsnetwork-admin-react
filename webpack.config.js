@@ -1,15 +1,19 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-//   .BundleAnalyzerPlugin;
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractCSS = new ExtractTextPlugin("styles.min.css");
+
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   entry: ["./src/index.js"],
   output: {
     path: path.join(__dirname, "/dist"),
     publicPath: "/",
-    filename: "index_bundle.js"
+    filename: "index_bundle.js",
+    chunkFilename: "[id].bundle.js"
   },
 
   module: {
@@ -20,18 +24,11 @@ module.exports = {
         loaders: ["babel-loader?presets[]=react"]
       },
       {
-        test: /\.scss$|\.css/,
-        use: [
-          {
-            loader: "style-loader" // creates style nodes from JS strings
-          },
-          {
-            loader: "css-loader" // translates CSS into CommonJS
-          },
-          {
-            loader: "sass-loader" // compiles Sass to CSS
-          }
-        ]
+        test: /\.css$/,
+        use: extractCSS.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "postcss-loader"]
+        })
       },
       {
         test: /\.jpe?g$|\.gif$|\.png|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
@@ -63,8 +60,8 @@ module.exports = {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-    // new BundleAnalyzerPlugin()
+    extractCSS,
+    new BundleAnalyzerPlugin()
   ],
   devServer: {
     contentBase: "./dist",

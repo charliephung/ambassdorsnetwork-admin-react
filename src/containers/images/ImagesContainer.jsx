@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import "./Image.scss";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Button } from "components/common/button/Button";
 

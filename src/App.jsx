@@ -9,7 +9,6 @@ import {
 import { hot } from "react-hot-loader";
 import AuthRoute from "components/route/AuthRoute";
 import GuestRoute from "components/route/GuestRoute";
-import "./styles/_main.scss";
 import DynamicImport from "components/feature/DynamicImport";
 import { SideNav, routes } from "routes";
 
