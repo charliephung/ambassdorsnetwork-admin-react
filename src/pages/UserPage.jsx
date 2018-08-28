@@ -72,6 +72,7 @@ export class UserPage extends Component {
           </PopUp>
         )}
         <UserContainer
+          activeIndex={onEdit}
           onEdit={this.onEdit}
           onDelete={() => {}}
           onShowMap={this.onShowMap}
