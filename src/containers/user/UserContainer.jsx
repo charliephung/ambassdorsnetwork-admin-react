@@ -12,7 +12,8 @@ const UserRow = ({
   active,
   id,
   onEdit,
-  onShowMap
+  onShowMap,
+  onDelete
 }) => {
   return (
     <Row className={`border-bottom ${active ? "bg-color-green" : ""}`}>
@@ -43,7 +44,9 @@ const UserRow = ({
           Edit
         </Button>
         &nbsp;
-        <Button className="btn--red">Delete</Button>
+        <Button onClick={() => onDelete(id, email)} className="btn--red">
+          Delete
+        </Button>
       </Data>
     </Row>
   );
@@ -60,7 +63,13 @@ UserRow.propTypes = {
   onShowMap: PropTypes.func.isRequired
 };
 
-const UserContainer = ({ ambassadors, activeIndex, onEdit, onShowMap }) => {
+const UserContainer = ({
+  ambassadors,
+  activeIndex,
+  onEdit,
+  onShowMap,
+  onDelete
+}) => {
   return (
     <Table>
       <Head>
@@ -77,6 +86,7 @@ const UserContainer = ({ ambassadors, activeIndex, onEdit, onShowMap }) => {
           ? ambassadors.map(ele => (
               <UserRow
                 onEdit={onEdit}
+                onDelete={onDelete}
                 onShowMap={onShowMap}
                 active={activeIndex == ele.id}
                 key={ele.email}

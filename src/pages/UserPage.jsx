@@ -1,15 +1,30 @@
 import React, { Component } from "react";
-import { Table, Head, Body, Row, Data } from "components/common/table/Table";
 import firebase from "firebase";
-import UserContainer from "containers/user/UserContainer";
 import PopUp from "components/common/popup/PopUp";
-import UserForm from "containers/user/UserForm";
+import DynamicImport from "components/feature/DynamicImport";
 
 const objToArr = data => Object.keys(data).map(el => ({ ...data[el], id: el }));
 
+const UserForm = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/user/UserForm")}
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
+    />
+  );
+};
+const UserContainer = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/user/UserContainer")}
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
+    />
+  );
+};
+
 export class UserPage extends Component {
-  state = { ambassadors: [], onEdit: null };
-  ambassadorsListner = firebase.database().ref("/data");
+  state = { ambassadors: [], onEdit: null, activeIndex: null };
+  ambassadorsListner = firebase.database();
 
   setContent = val => {
     this.setState({
@@ -17,14 +32,15 @@ export class UserPage extends Component {
     });
   };
   componentDidMount() {
-    this.ambassadorsListner.on("value", this.setContent);
+    this.ambassadorsListner.ref("/data").on("value", this.setContent);
   }
   componentWillUnmount() {
-    this.ambassadorsListner.off("value", this.setContent);
+    this.ambassadorsListner.ref("/data").off("value", this.setContent);
   }
   onEdit = id => {
     this.setState({
-      onEdit: id
+      onEdit: id,
+      activeIndex: id
     });
   };
   onShowMap = (id, value) => {
@@ -36,8 +52,7 @@ export class UserPage extends Component {
       });
   };
   onSubmit = data => {
-    firebase
-      .database()
+    this.ambassadorsListner
       .ref(`/data/${data.id}`)
       .update({
         address: data.address,
@@ -52,8 +67,26 @@ export class UserPage extends Component {
       });
   };
 
+  onDelete = (id, email) => {
+    const input = prompt(
+      `Warning!! Delete ${email}\nTo confirm type in:\n${email}`
+    );
+    if (input == email) {
+      const { ambassadors } = this.state;
+      const deleteIndex = ambassadors.findIndex(ele => ele.id == id);
+      const { post } = ambassadors[deleteIndex];
+
+      this.ambassadorsListner.ref(`/data/${id}`).remove();
+      Object.keys(post).forEach(key => {
+        this.ambassadorsListner.ref(`/post/${key}`).remove();
+      });
+    } else {
+      alert("Cancel");
+    }
+  };
+
   render() {
-    const { ambassadors, onEdit } = this.state;
+    const { ambassadors, onEdit, activeIndex } = this.state;
     const editingIndex = ambassadors.findIndex(ele => ele.id == onEdit);
     const data = onEdit ? ambassadors[editingIndex] : {};
 
@@ -72,9 +105,9 @@ export class UserPage extends Component {
           </PopUp>
         )}
         <UserContainer
-          activeIndex={onEdit}
+          activeIndex={activeIndex}
           onEdit={this.onEdit}
-          onDelete={() => {}}
+          onDelete={this.onDelete}
           onShowMap={this.onShowMap}
           ambassadors={ambassadors}
         />

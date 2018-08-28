@@ -2,14 +2,40 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { matchPath } from "react-router-dom";
 import api from "../actions/api";
-import { FaSave, FaEye, FaEdit } from "react-icons/fa";
-import EditorForm from "containers/editor-form/EditForm";
-import Preview from "containers/editor-form/Preview";
-import ToolBar from "containers/tool-bar/ToolBar";
+import { FaSave, FaEye, FaEdit, FaTimes } from "react-icons/fa";
+import DynamicImport from "components/feature/DynamicImport";
 import { actViewPost, actUpdatePost } from "../actions/posts/actPosts";
+import firebase from "firebase";
+
+const EditorForm = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/editor-form/EditForm")}
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
+    />
+  );
+};
+const Preview = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/editor-form/Preview")}
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
+    />
+  );
+};
+const ToolBar = props => {
+  return (
+    <DynamicImport
+      load={() => import("containers/tool-bar/ToolBar")}
+      render={Comp => (Comp === null ? null : <Comp {...props} />)}
+    />
+  );
+};
 
 export class PostPage extends Component {
   state = { onEdit: false };
+  postsListner = firebase.database();
+
   componentDidMount() {
     const match = matchPath(this.props.location.pathname, {
       path: "/posts/:ambassadorId/post/:postId"
@@ -42,8 +68,33 @@ export class PostPage extends Component {
     }
   };
 
+  onDelete = (amId, poId) => {
+    const input = prompt(
+      `Warning!! Delete this post\nTo confirm type in:\nyes`
+    );
+    if (input == "yes") {
+      this.postsListner
+        .ref(`/data/${amId}/post/${poId}`)
+        .remove()
+        .then(() => {
+          this.postsListner
+            .ref(`/post/${poId}`)
+            .remove()
+            .then(() => {
+              this.props.history.push("/posts");
+            });
+        });
+    } else {
+      console.log("Cancel");
+    }
+  };
+
   render() {
     const { onEdit } = this.state;
+    console.log(this.props);
+    const match = matchPath(this.props.location.pathname, {
+      path: "/posts/:ambassadorId/post/:postId"
+    });
     const toolItem = onEdit
       ? [
           { main: <FaEdit onClick={this.onEdit} /> },
@@ -52,7 +103,16 @@ export class PostPage extends Component {
         ]
       : [
           { main: <FaEdit onClick={this.onEdit} /> },
-          { main: <FaEye onClick={this.onUnEdit} /> }
+          { main: <FaEye onClick={this.onUnEdit} /> },
+          {
+            main: (
+              <FaTimes
+                onClick={() =>
+                  this.onDelete(match.params.ambassadorId, match.params.postId)
+                }
+              />
+            )
+          }
         ];
     const { viewPost } = this.props;
     const layout = onEdit ? (
