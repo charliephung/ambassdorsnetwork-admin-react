@@ -1,10 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Table, Head, Body, Row, Data } from "components/common/table/Table";
 import { Button } from "components/common/button/Button";
 
-const UserRow = ({ email, name, post, ambassador }) => {
+const UserRow = ({
+  email,
+  name,
+  post,
+  ambassador,
+  active,
+  id,
+  onEdit,
+  onShowMap
+}) => {
   return (
-    <Row className="border-bottom">
+    <Row className={`border-bottom ${active ? "bg-color-green" : ""}`}>
       <Data width="30%">{email}</Data>
       <Data width="25%">{name}</Data>
       <Data width="10%">
@@ -12,13 +23,25 @@ const UserRow = ({ email, name, post, ambassador }) => {
       </Data>
       <Data width="15%">
         {ambassador ? (
-          <Button className="btn--green">Show</Button>
+          <Button
+            onClick={() => onShowMap(id, !ambassador)}
+            className="btn--green"
+          >
+            Show
+          </Button>
         ) : (
-          <Button className="btn--orange">Hide</Button>
+          <Button
+            onClick={() => onShowMap(id, !ambassador)}
+            className="btn--orange"
+          >
+            Hide
+          </Button>
         )}
       </Data>
       <Data width="20%">
-        <Button className="btn--orange">Edit</Button>
+        <Button onClick={() => onEdit(id)} className="btn--orange">
+          Edit
+        </Button>
         &nbsp;
         <Button className="btn--red">Delete</Button>
       </Data>
@@ -26,12 +49,52 @@ const UserRow = ({ email, name, post, ambassador }) => {
   );
 };
 
-const UserContainer = ({ ambassadors }) => {
-  console.log(ambassadors);
+UserRow.propTypes = {
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  post: PropTypes.object,
+  ambassador: PropTypes.bool.isRequired,
+  active: PropTypes.bool,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onShowMap: PropTypes.func.isRequired
+};
 
-  return ambassadors
-    ? ambassadors.map(ele => <UserRow key={ele.email} {...ele} />)
-    : null;
+const UserContainer = ({ ambassadors, activeIndex, onEdit, onShowMap }) => {
+  return (
+    <Table>
+      <Head>
+        <Row>
+          <Data>Email</Data>
+          <Data>Name</Data>
+          <Data>Posts</Data>
+          <Data>OnMap</Data>
+          <Data>Edit</Data>
+        </Row>
+      </Head>
+      <Body>
+        {ambassadors
+          ? ambassadors.map(ele => (
+              <UserRow
+                onEdit={onEdit}
+                onShowMap={onShowMap}
+                active={activeIndex == ele.id}
+                key={ele.email}
+                {...ele}
+              />
+            ))
+          : null}
+      </Body>
+    </Table>
+  );
+};
+
+UserContainer.propTypes = {
+  ambassadors: PropTypes.array.isRequired,
+  activeIndex: PropTypes.string,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onShowMap: PropTypes.func.isRequired
 };
 
 export default UserContainer;
