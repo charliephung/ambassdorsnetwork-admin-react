@@ -1,0 +1,46 @@
+.form {
+    &__edit {
+        max-width: 1000px;
+    }
+
+    &>h1 {
+        text-align: center;
+    }
+
+    &__control {
+        &>label {
+            margin-right: auto;
+            display: block;
+        }
+
+        &>input {
+            margin-left: auto;
+            padding: 0 .5rem;
+            width: 100%;
+            height: 50px;
+            font-size: 1.8rem;
+        }
+
+        &>textarea {
+            font-size: 1.8rem;
+        }
+
+        &>select {
+            padding: 0 .5rem;
+            width: 100%;
+            height: 30px;
+            font-size: 1.8rem;
+        }
+
+        &>option {
+            padding: 0 .5rem;
+            width: 100%;
+            height: 30px;
+            font-size: 1.8rem;
+        }
+    }
+
+    &__label {
+        margin-right: auto;
+    }
+}
